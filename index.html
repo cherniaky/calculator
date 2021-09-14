@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100vh;
+        }
+
+        #calculator {
+            display: grid;
+            grid-template-areas:
+                'text text text text'
+                'num7 num8 num9 clean'
+                'num4 num5 num6 divide'
+                'num1 num2 num3 multiply'
+                'num0 math add substract'
+            ;
+            grid-gap: 5px;
+            height: 90vh;
+            width: auto;
+            background-color: #000000;
+            padding: 10px;
+            border: 1px solid black;
+            box-sizing: 15px;
+        }
+
+        #calculator button {
+
+            text-align: center;
+            width: auto;
+            font-size: 30px;
+            font-weight: 900;
+            border: none;
+        }
+
+        button {
+            margin: 1px;
+            border-radius: 5%;
+            border: none;
+
+
+            font-family: monospace;
+            color: black;
+        }
+
+        .press {}
+
+        #num7 {
+            grid-area: num7;
+            background-color: rgb(77, 107, 77);
+        }
+
+        button:hover  {
+
+            background-color: #335e5f;
+
+        }
+
+        #num8 {
+            background-color: rgb(77, 107, 77);
+            grid-area: num8;
+        }
+
+        #num9 {
+            background-color: rgb(77, 107, 77);
+            grid-area: num9;
+        }
+
+        #text {
+            font-size: 50px;
+            background-color: rgb(231, 229, 226);
+            grid-area: text;
+            border: 0px solid black;
+        }
+
+        #num4 {
+            background-color: rgb(77, 107, 77);
+            grid-area: num4;
+        }
+
+        #num5 {
+            background-color: rgb(77, 107, 77);
+            grid-area: num5;
+        }
+
+        #num6 {
+            background-color: rgb(77, 107, 77);
+            grid-area: num6;
+        }
+
+        #clean {
+            background-color: rgb(192, 146, 76);
+            grid-area: clean;
+        }
+
+        #num1 {
+            background-color: rgb(77, 107, 77);
+            grid-area: num1;
+        }
+
+        #num2 {
+            background-color: rgb(77, 107, 77);
+            grid-area: num2;
+        }
+
+        #num3 {
+            background-color: rgb(77, 107, 77);
+            grid-area: num3;
+        }
+
+        #multiply {
+            background-color: rgb(192, 146, 76);
+
+            grid-area: multiply;
+        }
+
+        #multiply:focus {
+            background-color: #ffc183;
+        }
+
+        #num0 {
+            background-color: rgb(77, 107, 77);
+            grid-area: num0;
+        }
+
+        #math {
+            background-color: rgb(192, 146, 76);
+            grid-area: math;
+        }
+
+        #math:active {
+            background-color: #ffc183;
+        }
+
+        #divide {
+            background-color: rgb(192, 146, 76);
+            grid-area: divide;
+        }
+
+        #divide:focus {
+            background-color: #ffc183;
+        }
+
+        #add {
+            background-color: rgb(192, 146, 76);
+            grid-area: add;
+        }
+
+        #add:focus {
+            background-color: #ffc183;
+        }
+
+        #substract {
+            background-color: rgb(192, 146, 76);
+
+            grid-area: substract;
+        }
+
+        #substract:focus {
+            background-color: #ffc183;
+        }
+    </style>
+</head>
+
+<body>
+    <main id="calculator">
+        <input id="text" type="text">
+        <button id="num7" onclick="num(num7)">7</button>
+        <button id="num8" onclick="num(num8)">8</button>
+        <button id="num9" onclick="num(num9)">9</button>
+        <button id="clean">C</button>
+        <button id="num4" onclick="num(num4)">4</button>
+        <button id="num5" onclick="num(num5)">5</button>
+        <button id="num6" onclick="num(num6)">6</button>
+        <button id="divide" onclick="move(divide)">/</button>
+        <button id="num1" onclick="num(num1)">1</button>
+        <button id="num2" onclick="num(num2)">2</button>
+        <button id="num3" onclick="num(num3)">3</button>
+        <button id="multiply" onclick="move(multiply)">*</button>
+        <button id="num0" onclick="num(num0)">0</button>
+        <button id="math">=</button>
+        <button id="add" onclick="move(add)">+</button>
+        <button id="substract" onclick="move(substract)">-</button>
+    </main>
+</body>
+<script>
+    let displayValue = '';
+    let operand = '';
+    let first, second;
+    let i = 0;
+    const text = document.querySelector('input');
+    const num7 = document.getElementById('num7');
+    const num8 = document.getElementById('num8');
+    const num9 = document.getElementById('num9');
+    const clean = document.getElementById('clean');
+    const num4 = document.getElementById('num4');
+    const num5 = document.getElementById('num5');
+    const num6 = document.getElementById('num6');
+    const divide = document.getElementById('divide');
+    const num1 = document.getElementById('num1');
+    const num2 = document.getElementById('num2');
+    const num3 = document.getElementById('num3');
+    const multiply = document.getElementById('multiply');
+    const num0 = document.getElementById('num0');
+    const math = document.getElementById('math');
+    const add = document.getElementById('add');
+    const substract = document.getElementById('substract');
+    // num7.addEventListener('click', num(num7));
+    function num(num) {
+        text.value += num.textContent;
+        displayValue += num.textContent;
+        //console.log(first + ' ' + second);
+    }
+    function move(num) {
+        if (operand != '') {
+            lets();
+        }
+        first = displayValue;
+
+
+        text.value += num.textContent;
+        displayValue = '';
+
+        operand = num.textContent;
+    }
+    function ad(a, b) {
+        text.value = -1 * (-a - b);
+        first = -1 * (-a - b);
+        return a + b;
+    }
+    function sub(a, b) {
+        text.value = a - b;
+        first = a - b;
+
+        return a - b;
+    }
+    function mul(a, b) {
+        text.value = a * b;
+        first = a * b;
+        return a * b;
+    }
+    function div(a, b) {
+        if (b === 0) {
+            alert('fuck');
+        }
+        text.value = Math.round(a / b * 1000) / 1000;
+        first = Math.round(a / b * 1000) / 1000;
+        return a / b;
+    }
+
+    function operate(operand, fi, second) {
+        switch (operand) {
+            case '+':
+                return ad(fi, second);
+                break;
+
+            case '-':
+                return sub(fi, second)
+            case '/':
+                return div(fi, second);
+                break;
+            case '*':
+                return mul(fi, second);
+                break;
+        }
+    }
+    function lets() {
+        second = displayValue;
+        console.log(first + ' ' + second + ' ' + operand);
+        operate(operand, first, second);
+
+
+        second = '';
+        operand = '';
+        displayValue = first;
+        console.log(first + ' ' + second + ' ' + operand);
+    }
+    // if (operand != '') {
+    ////    add.addEventListener('click', lets);
+    // }
+
+    math.addEventListener('click', lets);
+    clean.addEventListener('click', () => {
+        text.value = '';
+        displayValue = '';
+        operand = '';
+        first = '';
+        second = '';
+        i = 0;
+    });
+
+</script>
+
+</html>
